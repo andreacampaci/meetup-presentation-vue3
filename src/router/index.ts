@@ -1,6 +1,8 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router';
 import Home from '../views/Home.vue';
-import About from '../views/About.vue';
+import Fragments from '../views/Fragments.vue';
+import Teleport from '../views/Teleport.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -9,9 +11,14 @@ const routes: Array<RouteRecordRaw> = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    component: About
+    path: '/fragments',
+    name: 'Fragments',
+    component: Fragments
+  },
+  {
+    path: '/teleport',
+    name: 'Transport',
+    component: Teleport
   }
 ];
 
@@ -20,3 +27,16 @@ export const router = createRouter({
   routes
 });
 
+/*
+--- Vue 2.x
+import Vue from 'vue';
+import Router from 'vue-router';
+
+Vue.use(Router);
+
+export const route = new Router({
+  history: 'true',
+  routes,
+});
+
+*/
