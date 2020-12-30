@@ -1,15 +1,15 @@
 <template>
   <div class="compositionApi">
-    {{computedTitle}}
+    {{title}}
     <button @click="changeTitle">Change Title</button>
-    {{computedChangeTime}}
+    {{changedAt}}
     <hr/>
     <div class="form">
       Name<br/>
-      <input v-model="refName" placeholder="Insert your name" /><br/>
+      <input v-model="name" placeholder="Insert your name" /><br/>
       Surname<br/>
-      <input v-model="refSurname" placeholder="Insert your surname" /><br/>
-      <button @click="localAddUser">Add user</button><br/><br/>
+      <input v-model="surname" placeholder="Insert your surname" /><br/>
+      <button @click="addUser">Add user</button><br/><br/>
       Preview: {{fullName()}}
     </div>
     Tot: {{total}}
@@ -22,42 +22,46 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, ref, watch, reactive, toRefs } from 'vue';
-  import { useRoute, useRouter } from 'vue-router';
-  import {addUser, changeTime, printFullName} from "@/shared/external-methods";
+  import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
   import {Users} from "@/shared/interface";
+  import {now} from "@/shared/date";
 
-  export default defineComponent((props: {foo: string},) => {
-    props.foo;
-    const router = useRouter();
-    const route = useRoute();
-    const refName = ref('');
-    const refSurname = ref('');
-    const refTitle = ref('pippo');
-    const refUsers = reactive({
+  @Component
+  export default class CompositionApi extends Vue {
+    @Prop() public propName!: string;
+    public name = '';
+    public surname = '';
+    public title = 'pippo';
+    public usersCollection = {
       users: [],
-      total: computed((): number => refUsers.users.length),
-    });
-    const refChangeTime = ref('');
-    const computedTitle = computed(() => refTitle.value);
-    const computedChangeTime = computed(() => refChangeTime.value);
-    const changeTitle = () => {
-      refTitle.value = refTitle.value === 'pluto' ? 'pippo' : 'pluto';
-    };
-    const fullName = printFullName(refName, refSurname);
-    const localAddUser = addUser(refName, refSurname, refUsers as unknown as Users);
-    watch(refTitle, () => changeTime(refChangeTime), { immediate: true});
-    return {
-      computedTitle,
-      changeTitle,
-      computedChangeTime,
-      localAddUser,
-      refName,
-      refSurname,
-      fullName,
-      ...toRefs(refUsers)
+      total: 0,
+    } as Users;
+    public changedAt = '';
+
+    @Watch('title', { immediate: true, deep: true })
+    private watchTitle() {
+      this.changedAt = now();
     }
-  });
+
+    public changeTitle() {
+      this.title = this.title === 'pluto' ? 'pippo' : 'pluto';
+    };
+
+    get fullName() {
+      return this.name + ' ' + this.surname
+    }
+
+    public addUser() {
+        if (this.name === '' || this.surname === '') { return; }
+      this.usersCollection.users = [...this.usersCollection.users, {
+          name: this.name,
+          surname: this.surname
+        }];
+      this.name = '';
+      this.surname = '';
+    }
+
+  }
 </script>
 <style>
   .form {

@@ -12,23 +12,17 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
 
-  export default defineComponent({
-    emits: [],
-    name: 'Popup',
-    data() {
-      return {
-        visible: true,
+  @Component
+  export default class Popup extends Vue {
+      public visible = true;
+
+      public close() {
+          this.visible = false;
+          console.log('close')
       }
-    },
-    methods: {
-      close() {
-        this.visible = false;
-        console.log('close')
-      }
-    }
-  });
+  }
 </script>
 
 <style lang="scss">

@@ -6,21 +6,17 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
 
-  export default defineComponent({
-    emits: [],
-    name: 'FormSection',
-    computed: {
-      labels(): string[] {
-        return ['country', 'address', 'zip code', 'box'];
-      }
-    },
-    methods: {
-      placeholder(label: string): string {
-        return 'Insert here the ' + label;
-      }
+  @Component
+  export default class FormSection extends Vue {
+    get labels(): string[] {
+      return ['country', 'address', 'zip code', 'box'];
     }
-  });
+
+    public placeholder(label: string): string {
+      return 'Insert here the ' + label;
+    }
+  }
 </script>
 

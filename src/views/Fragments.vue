@@ -5,13 +5,14 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
   import Form from '../components/Form.vue';
 
-  export default defineComponent({
-    name: 'Fragments',
+  @Component({
     components: {
       Form
     }
-  });
+  })
+  export default class Fragments extends Vue {
+  }
 </script>

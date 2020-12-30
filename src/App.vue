@@ -9,11 +9,11 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { Component, Vue } from 'vue-property-decorator';
 
-  export default defineComponent({
-    name: 'App',
-  });
+  @Component
+  export default class App extends Vue {
+  }
 </script>
 
 <style lang="scss">

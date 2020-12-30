@@ -1,26 +1,23 @@
 <template>
   <div class="teleport">
-    <teleport to="#endofbody">
       <Popup>
         <button @click="handler">Submit</button>
       </Popup>
-    </teleport>
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import Popup from '../components/Popup.vue';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import Popup from "../components/Popup.vue";
 
-  export default defineComponent({
-    name: 'Teleport',
+  @Component({
     components: {
-     Popup
-    },
-    methods: {
-      handler($e: EventTarget) {
-        console.log($e);
-      }
+      Popup
     }
-  });
+  })
+  export default class Teleport extends Vue {
+    public handler($e: EventTarget) {
+      console.log($e);
+    }
+  }
 </script>

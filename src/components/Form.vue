@@ -13,26 +13,23 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { Component, Vue } from 'vue-property-decorator';
   import FormSection from './FormSection.vue';
 
-  export default defineComponent({
-    emits: [],
-    name: 'Form',
+  @Component({
     components: {
       FormSection
-    },
-    computed: {
-      labels(): string[] {
-        return ['first name', 'second first name', 'family name', 'gender'];
-      }
-    },
-    methods: {
-      placeholder(label: string): string {
-        return 'Insert here the ' + label;
-      }
     }
-  });
+  })
+  export default class Form extends Vue {
+    get labels(): string[] {
+      return ['first name', 'second first name', 'family name', 'gender'];
+    }
+
+    public placeholder(label: string): string {
+      return 'Insert here the ' + label;
+    }
+  }
 </script>
 
 <style lang="scss">

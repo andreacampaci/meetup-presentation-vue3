@@ -10,24 +10,16 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import type { PropType } from 'vue';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
 
-  export default defineComponent({
-    emits: [],
-    name: 'Sidebar',
-    props: {
-      menu: {
-        type: Array as PropType<string[]>,
-        required: true,
-      }
-    },
-    computed: {
-      sections(): string[] {
-        return ['home', ...this.menu];
-      }
+  @Component
+  export default class Sidebar extends Vue {
+    @Prop({ type: Array, required: true}) public menu!: string[];
+
+    get sections(): string[] {
+      return ['home', ...this.menu];
     }
-  });
+  }
 </script>
 
 <style lang="scss">
