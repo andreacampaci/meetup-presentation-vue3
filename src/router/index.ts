@@ -3,6 +3,7 @@ import type { RouteRecordRaw } from 'vue-router';
 import Home from '../views/Home.vue';
 import Fragments from '../views/Fragments.vue';
 import Teleport from '../views/Teleport.vue';
+import CompositionApi from '../views/CompositionApi.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -19,6 +20,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/teleport',
     name: 'Transport',
     component: Teleport
+  },
+  {
+    path: '/composition-api',
+    name: 'Composition Api',
+    component: CompositionApi
   }
 ];
 
